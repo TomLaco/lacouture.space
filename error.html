@@ -2,16 +2,61 @@
 <html lang="fr">
  <head>
   <meta charset="UTF-8">
-  <title>LaCouture.Space - Peluches du coeur venues de l'espace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LaCouture.Space - Peluches du coeur perdues dans l'espace !</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
   <style>
-    #main { position:fixed; left:0; top:0; height:100%; width:100%; background: url(/img/bg.jpg) center no-repeat; background-size:cover; }
-    #soon { position:fixed; left:50%; top:30%; width:400px; margin-left:-200px; text-align:center; font:italic small-caps bold xxx-large Charcoal, sans-serif; text-shadow: 0px 0px 3px rgb(27, 53, 52), 0px 0px 10px rgb(108, 176, 172); color: wheat; }
-    #error { color: lightsalmon; }
-    #errormsg{ font-size: large; font-variant-caps:  normal; }
+    body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: var(--text); background: var(--light); }
+    header { background: var(--light); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; }
+    header a { text-decoration: none; color: var(--primary); font-weight: 600; }
+    .logo { position: relative; display: inline-block; }
+    .logo-img { height: 80px; }
+    .hero { background-color: var(--light); padding: 3rem 2rem; display: flex; align-items: center; justify-content: space-between;}
+    .hero-text { width: 100%; text-align: center; }
+    .hero-text h1 { color: var(--primary); font-size: 2.5rem; font-family: 'Pacifico', cursive; margin-bottom: 1rem; }
+    .hero-text p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+    footer { background: var(--light); color: var(--text); text-align: center; padding: 1rem; bottom: 0;}
+    /* Responsive breakpoint */
+    @media (max-width: 768px) {
+        .logo-img { height: 60px; }
+    }
+    /* Themes automatiques selon la préférence système */
+    @media (prefers-color-scheme: dark) {
+        :root{ --primary: #38bdf8; --secondary: #1e293b; --text: #e0e0e0; --light: #0f1720; --light-rgb: 15, 23, 32; --shadow-rgb: 253, 185, 58; }
+        .hero { background-image: url('/img/bg-dark.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; }
+    }
+    @media (prefers-color-scheme: light) {
+        :root { --primary: #0077b6; --secondary: #e8f4f8; --text: #333; --light: #fffefa; --light-rgb: 255, 254, 250; --shadow-rgb: 18, 18, 18; }
+        .hero { background-image: url('/img/bg.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; }
+    }
   </style>
  </head>
  <body>
-  <div id="main"></div>
-  <div id="soon"><span id="error">Vous êtes perdu ?</span><br/><span id=errormsg>Ce que vous cherchez n'est pas ici.<br><a href="/">Rendez-vous à la base !</a></span></div>
+    <header>
+      <div class="logo">
+          <img src="/img/logo.png"
+                alt="Logo LaCouture.Space" class="logo-img">
+      </div>
+      <a href="/">Retourner à la base > 🛬</a>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Vous êtes trop loin !</h1>
+                <p>Restez sur terre pour voir nos peluches.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© <span id="year"></span> LaCouture.Space. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Année automatique dans le footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
  </body>
 </html>
