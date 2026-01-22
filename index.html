@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaCouture.Space - Peluches du coeur venues de l'espace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: var(--text); background: var(--light); }
+        header { background: var(--light); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; }
+        .logo { position: relative; display: inline-block; }
+        .logo-img { height: 80px; }
+        nav ul { display: flex; list-style: none; gap: 1.5rem; margin:0; padding:0;}
+        /* Hamburger button (hidden on desktop) */
+        .hamburger { display: none; background: transparent; border: none; cursor: pointer; width: 44px; height: 44px; padding: 0; /* will become flex when shown */ position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
+        .hamburger .bar { display: block; width: 22px; height: 2px; background: var(--primary); margin: 4px 0; transition: transform .2s, opacity .2s; }
+        /* Mobile menu styles when opened */
+        nav { position: relative; }
+        nav.open ul { display: flex; flex-direction: column; position: absolute; right: -1.5rem; top: calc(100% + 1.5rem); background: var(--light); box-shadow: 0 6px 18px rgba(var(--shadow-rgb),0.2); padding: 0.5rem 1rem; border-radius: 8px; border: var(--primary) 1px; border-style: none solid;}
+        nav.open ul li { margin: 0.5rem 0; text-wrap-mode: nowrap; }
+        nav a { text-decoration: none; color: var(--primary); font-weight: 600; }
+        .hero { background-color: var(--light); padding: 3rem 2rem; display: flex; align-items: center; justify-content: space-between;}
+        .hero-text { width: 45%; }
+        .hero-text h1 { color: var(--primary); font-size: 2.5rem; font-family: 'Pacifico', cursive; margin-bottom: 1rem; }
+        .hero-text p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .hero-buttons { display: flex; gap: 1rem; }
+        .hero-img { width: 50%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        .cta-button { background: var(--primary); color: var(--secondary); border: none; padding: 0.8rem 1.5rem; font-size: 1rem; border-radius: 5px; cursor: pointer; }
+        .cta-button:hover { background: #005580; }
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .modal-content { background: var(--light); margin: 5% auto; padding: 2rem; border-radius: 10px; width: 80%; max-width: 800px; text-align: center; position: relative; }
+        .close { position: absolute; right: 1.5rem; top: 1rem; font-size: 1.5rem; cursor: pointer; }
+        .carousel-container { position: relative; max-width: 100%; margin: 1.5rem auto; overflow: hidden; border-radius: 10px; }
+        .carousel { position: relative; width:100%; max-width: 500px; aspect-ratio: 1 / 1; overflow: hidden; margin: 1.5em auto; border-radius: 10px;}
+        .carousel-image { width: 100%; height: 100%; background-image: url("/img/carousel.jpg"); background-repeat: no-repeat; background-position: 0 0; background-size: 500% 100%; transition: background-position 0.4s ease; }
+        .carousel button { position: absolute; top: 50%; transform: translateY(-50%); background: transparent; color: var(--light); border: none; font-size: 30px; padding: 5px 10px; cursor: pointer; z-index: 2; height: 100%; transition: background-color .25s ease, color .25s ease, transform .2s ease; }
+        .carousel button:hover { background-color: rgba(var(--light-rgb), 0.6); color: var(--text); transform: translateY(-50%) scale(1.02); }
+        .prev { left: 0px; }
+        .next { right: 0px; }
+        .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 0 auto; }
+        .form-group { display: flex; flex-direction: column; text-align: left; }
+        .form-group label { margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea { padding: 0.7rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; background-color: var(--secondary); color: var(--text); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        footer { background: var(--light); color: var(--text); text-align: center; padding: 1rem; }
+        /* Responsive breakpoint */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hamburger { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; }
+            .hero { flex-direction: column; gap: 1rem; padding-top: 0; }
+            .hero-text { width: 100%; }
+            .hero-img { width: 100%; }
+            .logo-img { height: 60px; }
+        }
+        /* Themes automatiques selon la préférence système */
+        @media (prefers-color-scheme: dark) {
+            :root{ --primary: #38bdf8; --secondary: #1e293b; --text: #e0e0e0; --light: #0f1720; --light-rgb: 15, 23, 32; --shadow-rgb: 253, 185, 58; }
+            .hero { background-image: url('/img/bg-dark.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; }
+        }
+        @media (prefers-color-scheme: light) {
+            :root { --primary: #0077b6; --secondary: #e8f4f8; --text: #333; --light: #fffefa; --light-rgb: 255, 254, 250; --shadow-rgb: 18, 18, 18; }
+            .hero { background-image: url('/img/bg.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/img/logo.png"
+                 alt="Logo LaCouture.Space" class="logo-img">
+        </div>
+
+        <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+            <nav id="site-nav">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#" id="open-creations-modal">Nos créations</a></li>
+                    <li><a href="#" id="open-contact-modal">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Bienvenue chez LaCouture.Space</h1>
+                <p>Découvrez nos peluches en crochet uniques, inspirées par l'aviation et l'espace. Chaque pièce est conçue avec passion et un savoir-faire artisanal.</p>
+                <div class="hero-buttons">
+                    <button id="open-creations-modal-button" class="cta-button">Découvrir nos créations</button>
+                    <button id="open-contact-modal-button" class="cta-button">Nous contacter</button>
+                </div>
+            </div>
+            <img src="/img/creations.jpg"
+                 alt="Créations en crochet : avions et fusées" class="hero-img">
+        </section>
+
+        <!-- Pop-in pour les créations -->
+        <div id="creations-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Nos créations en crochet</h2>
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="carousel-image"></div>
+
+                        <button class="prev">‹</button>
+                        <button class="next">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pop-in pour le formulaire de contact -->
+        <div id="contact-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Nous contacter</h2>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nom :</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet :</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message :</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© <span id="year"></span> LaCouture.Space. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Année automatique dans le footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Gestion des pop-ins
+        const creationsModal = document.getElementById("creations-modal");
+        const contactModal = document.getElementById("contact-modal");
+        const openCreationsButtons = [document.getElementById("open-creations-modal-button"), document.getElementById("open-creations-modal")];
+        const openContactButtons = [document.getElementById("open-contact-modal-button"), document.getElementById("open-contact-modal")];
+        const closeButtons = document.querySelectorAll(".close");
+
+        function openModal(modal) { modal.style.display = "block"; }
+        function closeModal(modal) { modal.style.display = "none"; }
+
+        openCreationsButtons.forEach(button => button.addEventListener("click", () => openModal(creationsModal)));
+        openContactButtons.forEach(button => button.addEventListener("click", () => openModal(contactModal)));
+        closeButtons.forEach(button => button.addEventListener("click", () => { closeModal(creationsModal); closeModal(contactModal); }));
+
+        window.addEventListener("click", (event) => { if (event.target === creationsModal) closeModal(creationsModal); if (event.target === contactModal) closeModal(contactModal); });
+
+        // Gestion du carrousel
+        const totalImages = 5; // nombre total d’images
+        let index = 0;
+        const carouselImage = document.querySelector(".carousel-image");
+
+        carouselImage.style.backgroundPosition = `0 0`;
+
+        document.querySelector(".next").onclick = () => {
+            index = (index + 1) % totalImages;
+            carouselImage.style.backgroundPosition = `${100 / (totalImages - 1) * index}% 0`;
+        };
+
+        document.querySelector(".prev").onclick = () => {
+            index = (index - 1 + totalImages) % totalImages;
+            carouselImage.style.backgroundPosition = `${100 / (totalImages - 1) * index}% 0`;
+        };
+
+        // Responsive nav (hamburger)
+        const hamburger = document.querySelector('.hamburger');
+        const siteNav = document.getElementById('site-nav');
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = siteNav.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+        // close nav when clicking a link or outside
+        siteNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            siteNav.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+        }));
+        document.addEventListener('click', (e) => {
+            if (siteNav.classList.contains('open') && !siteNav.contains(e.target) && !hamburger.contains(e.target)) {
+                siteNav.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Gestion du formulaire de contact
+        document.getElementById("contact-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            alert("Merci pour votre message ! Nous vous répondrons bientôt.");
+            closeModal(contactModal);
+        });
+    </script>
+</body>
+</html>
